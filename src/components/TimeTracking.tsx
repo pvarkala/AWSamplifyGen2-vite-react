@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../amplify/data/resource";
+import { generateClient, MockClient } from "../lib/mock-amplify-client";
 import { 
   Play, 
   Pause, 
@@ -19,7 +19,7 @@ import {
 
 interface TimeTrackingProps {
   projectId: string;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: MockClient;
 }
 
 interface TimeEntry {
