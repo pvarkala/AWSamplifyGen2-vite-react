@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   Plus, 
@@ -26,7 +26,7 @@ import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 interface KanbanBoardProps {
   projectId: string;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: any;
 }
 
 interface Column {

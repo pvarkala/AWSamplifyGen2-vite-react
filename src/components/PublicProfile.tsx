@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   User, 
@@ -41,7 +41,7 @@ const PublicProfile: React.FC = () => {
   const [projects, setProjects] = useState<Array<Schema["Project"]["type"]>>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const client = generateClient<Schema>();
+  const client = generateClient();
 
   useEffect(() => {
     loadUserProfile();

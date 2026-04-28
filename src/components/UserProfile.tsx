@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { uploadData } from "aws-amplify/storage";
 import { 
@@ -18,7 +18,7 @@ import {
 
 interface UserProfileProps {
   user: any;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: any;
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({ user, client }) => {

@@ -13,6 +13,7 @@ export interface Schema {
       dueDate?: string;
       assigneeId?: string;
       comments?: string[];
+      projectId?: string;
       isDone?: boolean;
       createdAt: string;
       updatedAt: string;
@@ -24,6 +25,7 @@ export interface Schema {
       email: string;
       username?: string;
       bio?: string;
+      profilePicture?: string;
       isPublic?: boolean;
       commentsEnabled?: boolean;
       createdAt: string;
@@ -56,6 +58,8 @@ export interface Schema {
       duration: number;
       userId: string;
       projectId?: string;
+      startTime?: string;
+      endTime?: string;
       isBillable?: boolean;
       hourlyRate?: number;
       createdAt: string;
@@ -68,6 +72,8 @@ export interface Schema {
       name: string;
       description?: string;
       status: string;
+      color?: string;
+      isPublic?: boolean;
       createdAt: string;
       updatedAt: string;
     };

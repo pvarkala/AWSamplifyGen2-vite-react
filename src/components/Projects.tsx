@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   Plus, 
@@ -18,7 +18,7 @@ import {
 
 interface ProjectsProps {
   projects: Array<Schema["Project"]["type"]>;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: any;
 }
 
 const Projects: React.FC<ProjectsProps> = ({ projects, client }) => {
@@ -198,9 +198,9 @@ const Projects: React.FC<ProjectsProps> = ({ projects, client }) => {
                       </div>
                       <div className="flex items-center space-x-1">
                         {project.isPublic ? (
-                          <Eye className="w-4 h-4 text-gray-400" title="Public" />
+                          <Eye className="w-4 h-4 text-gray-400" />
                         ) : (
-                          <EyeOff className="w-4 h-4 text-gray-400" title="Private" />
+                          <EyeOff className="w-4 h-4 text-gray-400" />
                         )}
                         <button
                           onClick={() => setEditingProject(project)}

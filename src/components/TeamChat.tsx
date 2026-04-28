@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   Send, 
@@ -18,7 +18,7 @@ import {
 
 interface TeamChatProps {
   projectId: string;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: any;
   currentUserId: string;
 }
 

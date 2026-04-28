@@ -8,7 +8,9 @@ import {
   Plus,
   Calendar,
   Target,
-  Users
+  Users,
+  Folder,
+  BarChart3
 } from "lucide-react";
 import type { Schema } from "../amplify/data/resource";
 
@@ -269,11 +271,11 @@ const Dashboard: React.FC<DashboardProps> = ({ todos, projects, user }) => {
         >
           <div className="flex items-center space-x-3">
             <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
-              <FolderOpen className="w-6 h-6 text-purple-600 dark:text-purple-300" />
+              <Folder className="w-6 h-6 text-purple-600 dark:text-purple-300" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white">Projects</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Organize tasks by project</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Manage your projects</p>
             </div>
           </div>
         </Link>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   BarChart, 
@@ -38,7 +38,7 @@ import * as XLSX from "xlsx";
 
 interface AdvancedAnalyticsProps {
   projectId: string;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: any;
 }
 
 const AdvancedAnalytics: React.FC<AdvancedAnalyticsProps> = ({ projectId, client }) => {

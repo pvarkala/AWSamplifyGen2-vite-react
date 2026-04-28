@@ -71,12 +71,8 @@ const TimeTracking: React.FC<TimeTrackingProps> = ({ projectId, client }) => {
   const loadData = async () => {
     try {
       const [entriesResult, todosResult] = await Promise.all([
-        client.models.TimeEntry.list({
-          filter: { projectId: { eq: projectId } }
-        }),
-        client.models.Todo.list({
-          filter: { projectId: { eq: projectId } }
-        })
+        client.models.TimeEntry.list(),
+        client.models.Todo.list()
       ]);
       
       setTimeEntries(entriesResult.data as TimeEntry[]);
@@ -151,7 +147,7 @@ const TimeTracking: React.FC<TimeTrackingProps> = ({ projectId, client }) => {
 
   const deleteEntry = async (id: string) => {
     try {
-      await client.models.TimeEntry.delete({ id });
+      await client.models.TimeEntry.delete();
       await loadData();
     } catch (error) {
       console.error("Error deleting time entry:", error);

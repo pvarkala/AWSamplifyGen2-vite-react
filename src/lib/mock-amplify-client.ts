@@ -4,11 +4,11 @@ import { Schema } from '../amplify/data/resource';
 export interface MockClient {
   models: {
     Todo: {
-      list: () => Promise<{ data: Schema["Todo"]["type"][] }>;
+      list: (input?: any) => Promise<{ data: Schema["Todo"]["type"][] }>;
       get: (id: string) => Promise<{ data: Schema["Todo"]["type"] }>;
       create: (input: Partial<Schema["Todo"]["type"]>) => Promise<{ data: Schema["Todo"]["type"] }>;
       update: (input: Partial<Schema["Todo"]["type"]>) => Promise<{ data: Schema["Todo"]["type"] }>;
-      delete: (id: string) => Promise<void>;
+      delete: (input?: any) => Promise<void>;
     };
     User: {
       list: (input?: any) => Promise<{ data: Schema["User"]["type"][] }>;
@@ -25,9 +25,10 @@ export interface MockClient {
       create: (input: Partial<Schema["VideoCall"]["type"]>) => Promise<{ data: Schema["VideoCall"]["type"] }>;
     };
     TimeEntry: {
-      list: () => Promise<{ data: Schema["TimeEntry"]["type"][] }>;
+      list: (input?: any) => Promise<{ data: Schema["TimeEntry"]["type"][] }>;
       create: (input: Partial<Schema["TimeEntry"]["type"]>) => Promise<{ data: Schema["TimeEntry"]["type"] }>;
       update: (input: Partial<Schema["TimeEntry"]["type"]>) => Promise<{ data: Schema["TimeEntry"]["type"] }>;
+      delete: (input?: any) => Promise<void>;
     };
     Project: {
       list: () => Promise<{ data: Schema["Project"]["type"][] }>;
@@ -40,15 +41,15 @@ export interface MockClient {
   };
 }
 
-export const generateClient = (): MockClient => {
+export const generateClient = (): any => {
   return {
     models: {
       Todo: {
-        list: async () => ({ data: [] }),
+        list: async (input?: any) => ({ data: [] }),
         get: async () => ({ data: {} as Schema["Todo"]["type"] }),
         create: async () => ({ data: {} as Schema["Todo"]["type"] }),
         update: async () => ({ data: {} as Schema["Todo"]["type"] }),
-        delete: async () => {},
+        delete: async (input?: any) => {},
       },
       User: {
         list: async () => ({ data: [] }),
@@ -65,9 +66,10 @@ export const generateClient = (): MockClient => {
         create: async () => ({ data: {} as Schema["VideoCall"]["type"] }),
       },
       TimeEntry: {
-        list: async () => ({ data: [] }),
+        list: async (input?: any) => ({ data: [] }),
         create: async () => ({ data: {} as Schema["TimeEntry"]["type"] }),
         update: async () => ({ data: {} as Schema["TimeEntry"]["type"] }),
+        delete: async (input?: any) => {},
       },
       Project: {
         list: async () => ({ data: [] }),

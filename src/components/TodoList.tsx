@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   Plus, 
@@ -10,6 +10,7 @@ import {
   MoreVertical,
   Edit2,
   Trash2,
+  CheckSquare,
   Check,
   X,
   Clock,
@@ -18,7 +19,7 @@ import {
 
 interface TodoListProps {
   todos: Array<Schema["Todo"]["type"]>;
-  client: ReturnType<typeof generateClient<Schema>>;
+  client: any;
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, client }) => {
@@ -36,7 +37,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, client }) => {
   });
 
   const filteredTodos = todos.filter(todo => {
-    const matchesSearch = todo.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = todo.content?.toLowerCase().includes(searchTerm.toLowerCase()) || false;
     const matchesPriority = filterPriority === "all" || todo.priority === filterPriority;
     const matchesStatus = filterStatus === "all" || 
       (filterStatus === "completed" && todo.isDone) ||
