@@ -1,40 +1,101 @@
-import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
-const client = generateClient<Schema>();
+// Layout Components
+import { ProtectedRoute } from './components/layout/ProtectedRoute'
+import AppLayout from './components/layout/AppLayout'
+import AuthLayout from './components/layout/AuthLayout'
+
+// Public Pages
+import Homepage from './features/home/pages/Homepage'
+import PublicProfile from './features/profile/pages/PublicProfile'
+
+// Auth Pages
+import LoginPage from './features/auth/pages/LoginPage'
+import SignupPage from './features/auth/pages/SignupPage'
+
+// App Pages
+import DashboardPage from './features/dashboard/pages/DashboardPage'
+import ProjectsPage from './features/projects/pages/ProjectsPage'
+import KanbanBoardPage from './features/kanban/pages/KanbanBoardPage'
+import TasksPage from './features/tasks/pages/TasksPage'
+import TimeTrackingPage from './features/time-tracking/pages/TimeTrackingPage'
+import AnalyticsPage from './features/analytics/pages/AnalyticsPage'
+import TeamChatPage from './features/chat/pages/TeamChatPage'
+import ProfilePage from './features/profile/pages/ProfilePage'
+import SettingsPage from './features/settings/pages/SettingsPage'
+
+// Error Pages
+import NotFoundPage from './features/error/pages/NotFoundPage'
+import UnauthorizedPage from './features/error/pages/UnauthorizedPage'
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
-
   return (
-    <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
+    <Router>
+      <div className="min-h-screen bg-background font-sans antialiased">
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Homepage />} />
+          <Route path="/s/:username" element={<PublicProfile />} />
+          
+          {/* Auth Routes */}
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
+          </Route>
+          
+          {/* Protected App Routes */}
+          <Route path="/app" element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }>
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="projects" element={<ProjectsPage />} />
+            <Route path="projects/:id/kanban" element={<KanbanBoardPage />} />
+            <Route path="tasks" element={<TasksPage />} />
+            <Route path="time-tracking" element={<TimeTrackingPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="chat" element={<TeamChatPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="" element={<Navigate to="dashboard" replace />} />
+          </Route>
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={
+            <ProtectedRoute requiredRole="admin">
+              <AppLayout />
+            </ProtectedRoute>
+          }>
+            {/* Admin-specific routes can go here */}
+          </Route>
+          
+          {/* Error Routes */}
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+          
+          {/* Legacy redirects */}
+          <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
+          <Route path="/todos" element={<Navigate to="/app/tasks" replace />} />
+          <Route path="/profile" element={<Navigate to="/app/profile" replace />} />
+        </Routes>
+        
+        {/* Global Toast Notifications */}
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: 'hsl(var(--background))',
+              color: 'hsl(var(--foreground))',
+              border: '1px solid hsl(var(--border))',
+            },
+          }}
+        />
       </div>
-    </main>
-  );
+    </Router>
+  )
 }
 
-export default App;
+export default App
