@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
-  Plus, 
-  FolderOpen, 
-  Search, 
-  MoreVertical,
+  Plus,
   Edit2,
   Trash2,
   CheckSquare,
-  Calendar,
-  Users,
-  Settings,
   Eye,
-  EyeOff
+  EyeOff,
+  Search,
+  Calendar,
+  FolderOpen,
 } from "lucide-react";
 
 interface ProjectsProps {

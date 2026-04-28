@@ -6,11 +6,8 @@ import {
   AlertCircle, 
   TrendingUp, 
   Plus,
-  Calendar,
-  Target,
-  Users,
   Folder,
-  BarChart3
+  BarChart3,
 } from "lucide-react";
 import type { Schema } from "../amplify/data/resource";
 

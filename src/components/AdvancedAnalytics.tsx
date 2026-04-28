@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   BarChart, 
@@ -9,8 +8,6 @@ import {
   CartesianGrid, 
   Tooltip, 
   Legend, 
-  LineChart, 
-  Line, 
   PieChart, 
   Pie, 
   Cell, 
@@ -21,16 +18,12 @@ import {
 import { 
   TrendingUp, 
   TrendingDown, 
-  Clock, 
-  Users, 
+  Clock,
   Target, 
-  Calendar, 
   Download, 
-  Filter,
   RefreshCw,
   FileText,
   Mail,
-  Share2,
   Settings
 } from "lucide-react";
 import jsPDF from "jspdf";
@@ -48,7 +41,7 @@ const AdvancedAnalytics: React.FC<AdvancedAnalyticsProps> = ({ projectId, client
   const [milestones, setMilestones] = useState<Array<Schema["Milestone"]["type"]>>([]);
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState('30days');
-  const [activeReport, setActiveReport] = useState('overview');
+  const [_activeReport] = useState('overview');
 
   useEffect(() => {
     loadData();

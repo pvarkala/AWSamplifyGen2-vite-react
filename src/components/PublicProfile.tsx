@@ -3,35 +3,22 @@ import { useParams, Link } from "react-router-dom";
 import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
-  User, 
+  User,
   Calendar, 
-  MapPin, 
   Mail, 
   Globe as GlobeIcon,
   CheckSquare,
   FolderOpen,
   MessageSquare,
   Eye,
-  EyeOff,
   Share2,
-  Heart,
   ExternalLink,
   Sparkles,
   Trophy,
   Target,
-  Clock,
-  Star,
   Award,
   TrendingUp,
-  Users,
-  BarChart3,
   ArrowRight,
-  Twitter,
-  Linkedin,
-  Github,
-  Link2,
-  Briefcase,
-  Map
 } from "lucide-react";
 
 const PublicProfile: React.FC = () => {
@@ -56,7 +43,7 @@ const PublicProfile: React.FC = () => {
 
       // Find user by username
       const users = await client.models.User.list();
-      const userProfile = users.data.find(u => u.username === username);
+      const userProfile = users.data.find((u: any) => u.username === username);
       
       if (!userProfile) {
         setError("User not found");

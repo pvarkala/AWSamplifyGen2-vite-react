@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Joyride, { Step, CallBackProps } from "react-joyride";
 import { 
   Play, 
@@ -6,13 +6,8 @@ import {
   RotateCcw, 
   X, 
   CheckCircle, 
-  ArrowRight,
   Lightbulb,
   Target,
-  Clock,
-  Users,
-  BarChart3,
-  Settings
 } from "lucide-react";
 
 interface InteractiveTutorialProps {
@@ -146,7 +141,7 @@ const InteractiveTutorial: React.FC<InteractiveTutorialProps> = ({
       if (onComplete) onComplete();
     }
     
-    if (type === 'step:change') {
+    if (type === 'step:change' as any) {
       setStepIndex(index);
       setTourProgress((index + 1) / steps.length * 100);
     }

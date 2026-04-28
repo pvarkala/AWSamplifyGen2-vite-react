@@ -1,20 +1,16 @@
-import { useState, useEffect } from "react";
-import { generateClient } from "../lib/mock-amplify-client";
+import { useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { 
   Plus, 
   Search, 
-  Filter, 
   Calendar, 
   Tag, 
-  MoreVertical,
   Edit2,
   Trash2,
-  CheckSquare,
   Check,
-  X,
+  AlertCircle,
   Clock,
-  AlertCircle
+  CheckSquare,
 } from "lucide-react";
 
 interface TodoListProps {

@@ -11,9 +11,6 @@ import {
   Rocket,
   Brain,
   Sparkles,
-  MessageSquare,
-  Calendar,
-  Video,
   Shield,
   Clock,
   Target,
@@ -104,15 +101,7 @@ const Home: React.FC = () => {
     }
   ];
 
-  const integrations = [
-    { name: "Slack", icon: MessageSquare, color: "bg-purple-100 text-purple-600" },
-    { name: "Google Calendar", icon: Calendar, color: "bg-blue-100 text-blue-600" },
-    { name: "GitHub", icon: Github, color: "bg-gray-100 text-gray-600" },
-    { name: "Microsoft Teams", icon: Users, color: "bg-cyan-100 text-cyan-600" },
-    { name: "Zoom", icon: Video, color: "bg-blue-100 text-blue-600" },
-    { name: "Dropbox", icon: Shield, color: "bg-indigo-100 text-indigo-600" }
-  ];
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
       {/* Background Elements */}

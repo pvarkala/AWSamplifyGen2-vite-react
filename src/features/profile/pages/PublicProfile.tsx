@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { User, Calendar, MapPin, Mail, Globe as GlobeIcon, Eye, Share2 } from 'lucide-react'
+import { Calendar, MapPin, Mail, Globe as GlobeIcon, Eye, Share2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card'
 import { Button } from '../../../components/ui/Button'
 

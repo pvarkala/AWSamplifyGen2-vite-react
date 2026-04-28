@@ -45,11 +45,11 @@ export const generateClient = (): any => {
   return {
     models: {
       Todo: {
-        list: async (input?: any) => ({ data: [] }),
+        list: async (_input?: any) => ({ data: [] }),
         get: async () => ({ data: {} as Schema["Todo"]["type"] }),
         create: async () => ({ data: {} as Schema["Todo"]["type"] }),
         update: async () => ({ data: {} as Schema["Todo"]["type"] }),
-        delete: async (input?: any) => {},
+        delete: async (_input?: any) => {},
       },
       User: {
         list: async () => ({ data: [] }),
@@ -66,10 +66,10 @@ export const generateClient = (): any => {
         create: async () => ({ data: {} as Schema["VideoCall"]["type"] }),
       },
       TimeEntry: {
-        list: async (input?: any) => ({ data: [] }),
+        list: async (_input?: any) => ({ data: [] }),
         create: async () => ({ data: {} as Schema["TimeEntry"]["type"] }),
         update: async () => ({ data: {} as Schema["TimeEntry"]["type"] }),
-        delete: async (input?: any) => {},
+        delete: async (_input?: any) => {},
       },
       Project: {
         list: async () => ({ data: [] }),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
@@ -21,7 +21,6 @@ import {
   Sun
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
-import { Button } from '../ui/Button'
 import { cn } from '../../utils/cn'
 
 const navigation = [

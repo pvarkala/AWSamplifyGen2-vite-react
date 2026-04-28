@@ -25,7 +25,7 @@ export const useAuthStore = create<AuthState>()(
         isLoading: false,
         subscription: null,
 
-        login: async (email: string, password: string) => {
+        login: async (email: string, _password: string) => {
           set({ isLoading: true })
           try {
             // Mock API call - replace with actual auth service
@@ -146,7 +146,7 @@ export const useAuthStore = create<AuthState>()(
           }
         },
 
-        register: async (email: string, password: string, firstName: string, lastName: string) => {
+        register: async (email: string, _password: string, firstName: string, lastName: string) => {
           set({ isLoading: true })
           try {
             // Mock registration

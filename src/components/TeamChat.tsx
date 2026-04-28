@@ -1,19 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { generateClient } from "../lib/mock-amplify-client";
-import type { Schema } from "../amplify/data/resource";
 import { 
-  Send, 
-  Paperclip, 
-  Smile, 
-  AtSign, 
-  Phone, 
-  Video, 
-  Users, 
+  Send,
+  Paperclip,
+  Smile,
+  Phone,
+  Video,
+  Users,
   Hash,
   Search,
   Plus,
   Settings,
-  Bell
 } from "lucide-react";
 
 interface TeamChatProps {
@@ -46,12 +42,12 @@ const TeamChat: React.FC<TeamChatProps> = ({ projectId, client, currentUserId })
   const [channels, setChannels] = useState<Channel[]>([]);
   const [activeChannel, setActiveChannel] = useState<Channel | null>(null);
   const [newMessage, setNewMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-  const [showMentions, setShowMentions] = useState(false);
+  const [_showChannelSettings, _setShowChannelSettings] = useState(false);
+  const [_isTyping, setIsTyping] = useState(false);
   const [mentionQuery, setMentionQuery] = useState("");
+  const [showMentions, setShowMentions] = useState(false);
   const [teamMembers, setTeamMembers] = useState<Array<{id: string, name: string, avatar?: string}>>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showChannelSettings, setShowChannelSettings] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -100,7 +96,7 @@ const TeamChat: React.FC<TeamChatProps> = ({ projectId, client, currentUserId })
     }
   };
 
-  const loadMessages = async (channelId: string) => {
+  const loadMessages = async (_channelId: string) => {
     try {
       // Load messages for channel (would be from database)
       const mockMessages: ChatMessage[] = [

@@ -1,25 +1,20 @@
 import { useState, useEffect } from "react";
-import { generateClient } from "../lib/mock-amplify-client";
 import type { Schema } from "../amplify/data/resource";
 import { 
   Plus, 
   MoreVertical, 
-  Clock, 
   Calendar, 
   User, 
   Tag, 
   MessageSquare,
   Video,
-  Phone,
   Timer,
   Target,
   GripVertical,
-  X,
-  Edit2,
   CheckSquare
 } from "lucide-react";
 import { DndContext, DragEndEvent, DragOverEvent, DragStartEvent, useSensor, useSensors, PointerSensor, KeyboardSensor } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
@@ -36,7 +31,7 @@ interface Column {
   todos: Array<Schema["Todo"]["type"]>;
 }
 
-const SortableTodoCard: React.FC<{ todo: Schema["Todo"]["type"]; onUpdate: (todo: Schema["Todo"]["type"]) => void }> = ({ todo, onUpdate }) => {
+const SortableTodoCard: React.FC<{ todo: Schema["Todo"]["type"]; onUpdate: (todo: Schema["Todo"]["type"]) => void }> = ({ todo, onUpdate: _onUpdate }) => {
   const {
     attributes,
     listeners,
@@ -162,9 +157,9 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ projectId, client }) => {
     { id: 'done', title: 'Done', color: 'bg-green-500', todos: [] },
   ]);
   
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [_todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
   const [loading, setLoading] = useState(true);
-  const [activeColumnId, setActiveColumnId] = useState<string | null>(null);
+  const [_activeColumnId, setActiveColumnId] = useState<string | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -194,7 +189,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ projectId, client }) => {
       // Organize todos into columns
       const organizedColumns = columns.map(column => ({
         ...column,
-        todos: todosData.filter(todo => todo.status === column.id)
+        todos: todosData.filter((todo: Schema["Todo"]["type"]) => todo.status === column.id)
       }));
       
       setColumns(organizedColumns);

@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
 import type { Schema } from "../amplify/data/resource";
-import { generateClient, MockClient } from "../lib/mock-amplify-client";
+import { MockClient } from "../lib/mock-amplify-client";
 import { 
-  Play, 
-  Pause, 
-  Square, 
-  Clock, 
-  Calendar, 
   Timer, 
-  TrendingUp,
   BarChart3,
-  DollarSign,
-  Target,
   Plus,
+  Clock,
+  Calendar,
+  DollarSign,
+  Square,
+  Play,
   Edit2,
-  Trash2
+  Trash2,
 } from "lucide-react";
 
 interface TimeTrackingProps {
@@ -45,7 +42,8 @@ const TimeTracking: React.FC<TimeTrackingProps> = ({ projectId, client }) => {
     isBillable: false,
     hourlyRate: 0,
   });
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [_entries, _setEntries] = useState<Array<Schema["TimeEntry"]["type"]>>([]);
+  const [_todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
     loadData();
@@ -145,7 +143,7 @@ const TimeTracking: React.FC<TimeTrackingProps> = ({ projectId, client }) => {
     }
   };
 
-  const deleteEntry = async (id: string) => {
+  const deleteEntry = async (_id: string) => {
     try {
       await client.models.TimeEntry.delete();
       await loadData();

@@ -10,9 +10,6 @@ import {
   BarChart3,
   Rocket,
   Brain,
-  MessageSquare,
-  Calendar,
-  Video,
   Shield,
   Clock,
   Target,
@@ -20,7 +17,6 @@ import {
   Linkedin,
   Github
 } from 'lucide-react'
-import { Button } from '../../../components/ui/Button'
 
 const Homepage: React.FC = () => {
   const features = [
