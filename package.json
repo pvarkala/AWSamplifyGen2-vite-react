@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "constructs": "^10.6.0",
     "date-fns": "^3.6.0",
+    "fast-xml-parser": "4.4.1",
     "framer-motion": "^10.18.0",
     "html2canvas": "^1.4.1",
     "jotai": "^2.6.3",
@@ -39,6 +40,7 @@
     "recharts": "^2.15.4",
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.7.5",
+    "strnum": "2.2.3",
     "tailwind-merge": "^3.5.0",
     "xlsx": "^0.18.5",
     "y-websocket": "^1.5.0",
@@ -52,7 +54,9 @@
   },
   "overrides": {
     "@aws-sdk/types": "3.734.0",
-    "zod": "3.25.17"
+    "zod": "3.25.17",
+    "strnum": "2.2.3",
+    "fast-xml-parser": "4.4.1"
   },
   "devDependencies": {
     "@aws-amplify/backend": "~1.19.0",
