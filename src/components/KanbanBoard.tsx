@@ -36,7 +36,7 @@ interface Column {
   todos: Array<Schema["Todo"]["type"]>;
 }
 
-const SortableTodoCard: React.FC<{ todo: Schema["Todo"]["type"]; onUpdate: (todo: Schema["Todo"]["type"]) }> = ({ todo, onUpdate }) => {
+const SortableTodoCard: React.FC<{ todo: Schema["Todo"]["type"]; onUpdate: (todo: Schema["Todo"]["type"]) => void }> = ({ todo, onUpdate }) => {
   const {
     attributes,
     listeners,
