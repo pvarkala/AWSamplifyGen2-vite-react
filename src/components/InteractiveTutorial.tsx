@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Joyride, { Step, CallBackProps } from "react-joyride";
+import { Joyride, Step } from "react-joyride";
 import { 
   Play, 
   Pause, 
@@ -133,20 +133,7 @@ const InteractiveTutorial: React.FC<InteractiveTutorialProps> = ({
 
   const steps = getTutorialSteps(selectedRole);
 
-  const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status, index, type } = data;
-    
-    if (status === 'finished' || status === 'skipped') {
-      setRunTour(false);
-      if (onComplete) onComplete();
-    }
-    
-    if (type === 'step:change' as any) {
-      setStepIndex(index);
-      setTourProgress((index + 1) / steps.length * 100);
-    }
-  };
-
+  
   const startTour = () => {
     setShowWelcome(false);
     setRunTour(true);
@@ -244,20 +231,8 @@ const InteractiveTutorial: React.FC<InteractiveTutorialProps> = ({
       <Joyride
         steps={steps}
         run={runTour}
-        callback={handleJoyrideCallback}
         stepIndex={stepIndex}
         continuous={true}
-        showProgress={true}
-        showSkipButton={true}
-        styles={{
-          options: {
-            arrowColor: '#fff',
-            backgroundColor: '#fff',
-            primaryColor: '#3b82f6',
-            textColor: '#333',
-            zIndex: 1000,
-          },
-        }}
       />
 
       {/* Tour Controls */}

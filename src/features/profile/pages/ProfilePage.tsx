@@ -1,36 +1,21 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { User } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const ProfilePage: React.FC = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="space-y-6"
-    >
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
-          <p className="text-gray-600 mt-2">Manage your personal information and settings</p>
-        </div>
-      </div>
+  const navigate = useNavigate()
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <User className="w-5 h-5 mr-2" />
-            Personal Information
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-600 text-center py-8">
-            Profile management with avatar upload will be implemented here.
-          </p>
-        </CardContent>
-      </Card>
-    </motion.div>
+  useEffect(() => {
+    // Redirect to the actual profile management page
+    navigate('/app/profile/management', { replace: true })
+  }, [navigate])
+
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading profile...</p>
+      </div>
+    </div>
   )
 }
 

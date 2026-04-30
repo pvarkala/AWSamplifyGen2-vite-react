@@ -156,7 +156,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, client }) => {
             <select
               value={filterPriority}
               onChange={(e) => setFilterPriority(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             >
               <option value="all">All Priorities</option>
               <option value="high">High</option>
@@ -168,7 +168,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, client }) => {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             >
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
@@ -324,7 +324,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, client }) => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-foreground mb-1">
                     Priority
                   </label>
                   <select
@@ -333,7 +333,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, client }) => {
                       ? setEditingTodo({...editingTodo, priority: e.target.value as any})
                       : setNewTodo({...newTodo, priority: e.target.value as any})
                     }
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>

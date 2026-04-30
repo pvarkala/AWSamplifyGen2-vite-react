@@ -125,10 +125,10 @@ const DashboardPage: React.FC = () => {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-foreground">
             Welcome back, {user?.firstName}! 👋
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-muted-foreground mt-2">
             Here's what's happening with your projects today.
           </p>
         </div>
@@ -154,18 +154,18 @@ const DashboardPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className={`bg-gradient-to-br ${stat.bgGradient} border-0`}>
+            <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-0">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                    <p className="text-3xl font-bold text-gray-900 mt-2">{stat.value}</p>
-                    <p className="text-sm text-gray-600 mt-1 flex items-center">
-                      <TrendingUp className="w-4 h-4 mr-1 text-green-600" />
+                    <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                    <p className="text-3xl font-bold text-foreground mt-2">{stat.value}</p>
+                    <p className="text-sm text-muted-foreground mt-1 flex items-center">
+                      <TrendingUp className="w-4 h-4 mr-1 text-primary" />
                       {stat.change}
                     </p>
                   </div>
-                  <div className={`w-12 h-12 bg-gradient-to-r ${stat.color} rounded-xl flex items-center justify-center text-white`}>
+                  <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center text-primary-foreground">
                     <stat.icon className="w-6 h-6" />
                   </div>
                 </div>
@@ -196,31 +196,31 @@ const DashboardPage: React.FC = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {recentProjects.map((project) => (
-                <div key={project.id} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
+                <div key={project.id} className="border rounded-lg p-4 hover:border-primary/50 transition-colors">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-3">
                       <div className={`w-3 h-3 ${project.color} rounded-full`}></div>
-                      <h3 className="font-medium text-gray-900">{project.name}</h3>
+                      <h3 className="font-medium text-foreground">{project.name}</h3>
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         project.status === 'on-track' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
+                          ? 'bg-primary/20 text-primary' 
+                          : 'bg-accent/20 text-accent'
                       }`}>
                         {project.status === 'on-track' ? 'On Track' : 'At Risk'}
                       </span>
                     </div>
-                    <span className="text-sm text-gray-500">{project.dueDate}</span>
+                    <span className="text-sm text-muted-foreground">{project.dueDate}</span>
                   </div>
                   
                   <div className="mb-3">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm text-gray-600">Progress</span>
-                      <span className="text-sm font-medium text-gray-900">{project.progress}%</span>
+                      <span className="text-sm text-muted-foreground">Progress</span>
+                      <span className="text-sm font-medium text-foreground">{project.progress}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-muted rounded-full h-2">
                       <div 
                         className={`h-2 rounded-full ${
-                          project.status === 'on-track' ? 'bg-green-600' : 'bg-yellow-600'
+                          project.status === 'on-track' ? 'bg-primary' : 'bg-accent'
                         }`}
                         style={{ width: `${project.progress}%` }}
                       ></div>
@@ -230,8 +230,8 @@ const DashboardPage: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex -space-x-2">
                       {project.team.map((member, index) => (
-                        <div key={index} className="w-6 h-6 bg-gray-300 rounded-full border-2 border-white flex items-center justify-center">
-                          <span className="text-xs text-gray-600">{member}</span>
+                        <div key={index} className="w-6 h-6 bg-muted rounded-full border-2 border-background flex items-center justify-center">
+                          <span className="text-xs text-muted-foreground">{member}</span>
                         </div>
                       ))}
                     </div>
@@ -264,27 +264,27 @@ const DashboardPage: React.FC = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {upcomingTasks.map((task) => (
-                <div key={task.id} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
+                <div key={task.id} className="border rounded-lg p-4 hover:border-primary/50 transition-colors">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-medium text-gray-900 text-sm leading-tight">
+                    <h3 className="font-medium text-foreground text-sm leading-tight">
                       {task.title}
                     </h3>
                     <span className={`px-2 py-1 text-xs rounded-full ${
                       task.priority === 'high' 
-                        ? 'bg-red-100 text-red-800' 
-                        : 'bg-yellow-100 text-yellow-800'
+                        ? 'bg-destructive/20 text-destructive' 
+                        : 'bg-accent/20 text-accent'
                     }`}>
                       {task.priority}
                     </span>
                   </div>
                   
-                  <p className="text-xs text-gray-600 mb-2">{task.project}</p>
+                  <p className="text-xs text-muted-foreground mb-2">{task.project}</p>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">{task.dueDate}</span>
+                    <span className="text-xs text-muted-foreground">{task.dueDate}</span>
                     <div className="flex items-center space-x-2">
-                      <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span className="text-xs text-gray-600">{task.assignee}</span>
+                      <div className="w-5 h-5 bg-muted rounded-full flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground">{task.assignee}</span>
                       </div>
                     </div>
                   </div>

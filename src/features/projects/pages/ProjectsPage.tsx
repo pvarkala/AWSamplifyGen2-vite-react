@@ -13,8 +13,8 @@ const ProjectsPage: React.FC = () => {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Projects</h1>
-          <p className="text-gray-600 mt-2">Manage and track all your projects</p>
+          <h1 className="text-3xl font-bold text-foreground">Projects</h1>
+          <p className="text-muted-foreground mt-2">Manage and track all your projects</p>
         </div>
         
         <div className="flex space-x-3">
@@ -43,18 +43,18 @@ const ProjectsPage: React.FC = () => {
               </CardTitle>
               <div className="flex items-center space-x-2">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     type="text"
                     placeholder="Search projects..."
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground placeholder-muted-foreground"
                   />
                 </div>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 text-center py-8">
+            <p className="text-muted-foreground text-center py-8">
               Projects page content will be implemented here.
             </p>
           </CardContent>

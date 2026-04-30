@@ -6,7 +6,7 @@ export interface User {
   lastName: string;
   avatar?: string;
   bio?: string;
-  role: 'admin' | 'manager' | 'member' | 'viewer';
+  role: 'admin' | 'member' | 'viewer';
   isActive: boolean;
   isOnline: boolean;
   lastSeen: Date;
@@ -14,6 +14,19 @@ export interface User {
   updatedAt: Date;
   preferences: UserPreferences;
   subscription: Subscription;
+  location?: string;
+  website?: string;
+  timezone: string;
+  calendarConnected: boolean;
+  calendarProvider: 'google' | 'outlook' | null;
+  calendarAccessToken?: string;
+  stats?: UserStats;
+}
+
+export interface UserStats {
+  projects: number;
+  tasks: number;
+  completed: number;
 }
 
 export interface UserPreferences {

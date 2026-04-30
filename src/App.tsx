@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 // Layout Components
 import { ProtectedRoute } from './components/layout/ProtectedRoute'
@@ -13,6 +14,7 @@ import PublicProfile from './features/profile/pages/PublicProfile'
 // Auth Pages
 import LoginPage from './features/auth/pages/LoginPage'
 import SignupPage from './features/auth/pages/SignupPage'
+import CalendarCallbackPage from './features/auth/pages/CalendarCallbackPage'
 
 // App Pages
 import DashboardPage from './features/dashboard/pages/DashboardPage'
@@ -23,6 +25,7 @@ import TimeTrackingPage from './features/time-tracking/pages/TimeTrackingPage'
 import AnalyticsPage from './features/analytics/pages/AnalyticsPage'
 import TeamChatPage from './features/chat/pages/TeamChatPage'
 import ProfilePage from './features/profile/pages/ProfilePage'
+import ProfileManagement from './features/profile/pages/ProfileManagement'
 import SettingsPage from './features/settings/pages/SettingsPage'
 
 // Error Pages
@@ -31,8 +34,9 @@ import UnauthorizedPage from './features/error/pages/UnauthorizedPage'
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-background font-sans antialiased">
+    <ThemeProvider>
+      <Router>
+        <div className="min-h-screen bg-background font-sans antialiased">
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Homepage />} />
@@ -42,6 +46,7 @@ function App() {
           <Route path="/auth" element={<AuthLayout />}>
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="calendar/callback" element={<CalendarCallbackPage />} />
           </Route>
           
           {/* Protected App Routes */}
@@ -58,6 +63,7 @@ function App() {
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="chat" element={<TeamChatPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile/management" element={<ProfileManagement />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="" element={<Navigate to="dashboard" replace />} />
           </Route>
@@ -95,6 +101,7 @@ function App() {
         />
       </div>
     </Router>
+    </ThemeProvider>
   )
 }
 

@@ -4,10 +4,11 @@ import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Eye, EyeOff, Mail, Lock, User, Github, Chrome } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, User, Github, Chrome, ArrowRight } from 'lucide-react'
 import { useAuthStore } from '../../../store/authStore'
 import { Button } from '../../../components/ui/Button'
 import { Input } from '../../../components/ui/Input'
+import { Card, CardContent } from '../../../components/ui/Card'
 import toast from 'react-hot-toast'
 
 const signupSchema = z.object({
@@ -29,7 +30,7 @@ const SignupPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   
-  const { register: registerUser, loginWithProvider, isAuthenticated } = useAuthStore()
+  const { register: registerUser, loginWithProvider, isAuthenticated, isOAuthConfigured } = useAuthStore()
   
   const {
     register,
@@ -58,173 +59,241 @@ const SignupPage: React.FC = () => {
     }
   }
 
-  const handleSocialSignup = async (provider: 'google' | 'github' | 'microsoft') => {
+  const handleSocialSignup = async (provider: 'google' | 'github') => {
     try {
       await loginWithProvider(provider)
-      toast.success(`Account created via ${provider}!`)
-      navigate('/app/dashboard')
-    } catch (error) {
-      toast.error(`Failed to signup with ${provider}`)
+      toast.success(`Welcome! Signed in with ${provider.charAt(0).toUpperCase() + provider.slice(1)}`)
+      navigate('/app/profile')
+    } catch (error: any) {
+      toast.error(error.message || `Failed to sign in with ${provider}`)
     }
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full"
-    >
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
-        <p className="text-gray-600">Get started with TodoPro today</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-20 blur-3xl dark:opacity-10"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-pink-400 to-orange-600 rounded-full opacity-20 blur-3xl dark:opacity-10"></div>
       </div>
 
-      {/* Social Signup Buttons */}
-      <div className="space-y-3 mb-6">
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => handleSocialSignup('google')}
-          disabled={isLoading}
-        >
-          <Chrome className="w-5 h-5 mr-2" />
-          Sign up with Google
-        </Button>
-        
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => handleSocialSignup('github')}
-          disabled={isLoading}
-        >
-          <Github className="w-5 h-5 mr-2" />
-          Sign up with GitHub
-        </Button>
-      </div>
-
-      <div className="relative mb-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300"></div>
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-white text-gray-500">Or sign up with email</span>
-        </div>
-      </div>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <Input
-            label="First name"
-            type="text"
-            placeholder="John"
-            leftIcon={<User className="w-5 h-5 text-gray-400" />}
-            error={errors.firstName?.message}
-            {...register('firstName')}
-            disabled={isLoading}
-          />
-          
-          <Input
-            label="Last name"
-            type="text"
-            placeholder="Doe"
-            leftIcon={<User className="w-5 h-5 text-gray-400" />}
-            error={errors.lastName?.message}
-            {...register('lastName')}
-            disabled={isLoading}
-          />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        {/* Header */}
+        <div className="text-center mb-8">
+          <Link to="/" className="inline-flex items-center justify-center gap-3 mb-6 group">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform">
+              <span className="text-xl font-bold text-white">✦</span>
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">TodoPro</span>
+          </Link>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Create your account</h1>
+          <p className="text-muted-foreground">Join thousands of productive teams</p>
         </div>
 
-        <Input
-          label="Email address"
-          type="email"
-          placeholder="Enter your email"
-          leftIcon={<Mail className="w-5 h-5 text-gray-400" />}
-          error={errors.email?.message}
-          {...register('email')}
-          disabled={isLoading}
-        />
+        <Card className="border-2">
+          <CardContent className="pt-6">
+            {/* Social Signup Buttons */}
+            <div className="space-y-3 mb-6">
+              {!isOAuthConfigured('google') ? (
+                <Button
+                  variant="social"
+                  className="w-full opacity-60 cursor-not-allowed"
+                  disabled={true}
+                  fullWidth
+                  size="lg"
+                >
+                  <Chrome className="w-5 h-5 mr-3" />
+                  Google OAuth not configured
+                </Button>
+              ) : (
+                <Button
+                  variant="social"
+                  className="w-full"
+                  onClick={() => handleSocialSignup('google')}
+                  disabled={isLoading}
+                  fullWidth
+                  size="lg"
+                >
+                  <Chrome className="w-5 h-5 mr-3" />
+                  Sign up with Google
+                </Button>
+              )}
+              
+              {!isOAuthConfigured('github') ? (
+                <Button
+                  variant="social"
+                  className="w-full opacity-60 cursor-not-allowed"
+                  disabled={true}
+                  fullWidth
+                  size="lg"
+                >
+                  <Github className="w-5 h-5 mr-3" />
+                  GitHub OAuth not configured
+                </Button>
+              ) : (
+                <Button
+                  variant="social"
+                  className="w-full"
+                  onClick={() => handleSocialSignup('github')}
+                  disabled={isLoading}
+                  fullWidth
+                  size="lg"
+                >
+                  <Github className="w-5 h-5 mr-3" />
+                  Sign up with GitHub
+                </Button>
+              )}
+            </div>
 
-        <Input
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Create a password"
-          leftIcon={<Lock className="w-5 h-5 text-gray-400" />}
-          rightIcon={
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-            </button>
-          }
-          error={errors.password?.message}
-          {...register('password')}
-          disabled={isLoading}
-        />
+            {/* Divider */}
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center text-xs">
+                <span className="px-3 bg-card text-muted-foreground font-medium">Or sign up with email</span>
+              </div>
+            </div>
 
-        <Input
-          label="Confirm password"
-          type={showConfirmPassword ? 'text' : 'password'}
-          placeholder="Confirm your password"
-          leftIcon={<Lock className="w-5 h-5 text-gray-400" />}
-          rightIcon={
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-            </button>
-          }
-          error={errors.confirmPassword?.message}
-          {...register('confirmPassword')}
-          disabled={isLoading}
-        />
+            {/* Email Form */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <Input
+                  label="First name"
+                  type="text"
+                  placeholder="John"
+                  leftIcon={<User className="w-5 h-5" />}
+                  error={errors.firstName?.message}
+                  {...register('firstName')}
+                  disabled={isLoading}
+                />
+                
+                <Input
+                  label="Last name"
+                  type="text"
+                  placeholder="Doe"
+                  leftIcon={<User className="w-5 h-5" />}
+                  error={errors.lastName?.message}
+                  {...register('lastName')}
+                  disabled={isLoading}
+                />
+              </div>
 
-        <div className="flex items-center">
-          <input
-            id="terms"
-            type="checkbox"
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            required
-          />
-          <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-            I agree to the{' '}
-            <Link to="/terms" className="text-blue-600 hover:text-blue-500">
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link to="/privacy" className="text-blue-600 hover:text-blue-500">
-              Privacy Policy
-            </Link>
-          </label>
-        </div>
+              <Input
+                label="Email address"
+                type="email"
+                placeholder="you@example.com"
+                leftIcon={<Mail className="w-5 h-5" />}
+                error={errors.email?.message}
+                {...register('email')}
+                disabled={isLoading}
+              />
 
-        <Button
-          type="submit"
-          className="w-full"
-          variant="gradient"
-          loading={isLoading}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Creating account...' : 'Create account'}
-        </Button>
-      </form>
+              <Input
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                leftIcon={<Lock className="w-5 h-5" />}
+                rightIcon={
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                }
+                error={errors.password?.message}
+                {...register('password')}
+                disabled={isLoading}
+              />
 
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600">
-          Already have an account?{' '}
-          <Link
-            to="/auth/login"
-            className="font-medium text-blue-600 hover:text-blue-500"
-          >
-            Sign in
+              <Input
+                label="Confirm password"
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                leftIcon={<Lock className="w-5 h-5" />}
+                rightIcon={
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                }
+                error={errors.confirmPassword?.message}
+                {...register('confirmPassword')}
+                disabled={isLoading}
+              />
+
+              <div className="flex items-start gap-3 pt-2">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  className="h-5 w-5 rounded border-2 border-border accent-primary cursor-pointer mt-0.5"
+                  required
+                />
+                <label htmlFor="terms" className="text-sm text-muted-foreground cursor-pointer hover:text-foreground">
+                  I agree to the{' '}
+                  <Link to="/terms" className="font-semibold text-primary hover:text-primary/80 underline">
+                    Terms of Service
+                  </Link>{' '}
+                  and{' '}
+                  <Link to="/privacy" className="font-semibold text-primary hover:text-primary/80 underline">
+                    Privacy Policy
+                  </Link>
+                </label>
+              </div>
+
+              <Button
+                type="submit"
+                fullWidth
+                size="lg"
+                variant="default"
+                loading={isLoading}
+                disabled={isLoading}
+                className="mt-6"
+              >
+                Create account <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </form>
+
+            {/* Sign In Link */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-muted-foreground">
+                Already have an account?{' '}
+                <Link
+                  to="/auth/login"
+                  className="font-semibold text-primary hover:text-primary/80 transition-colors"
+                >
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Footer */}
+        <p className="text-center text-xs text-muted-foreground mt-6">
+          By signing up, you agree to our{' '}
+          <Link to="#" className="underline hover:text-foreground">
+            Terms of Service
+          </Link>{' '}
+          and{' '}
+          <Link to="#" className="underline hover:text-foreground">
+            Privacy Policy
           </Link>
         </p>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }
 

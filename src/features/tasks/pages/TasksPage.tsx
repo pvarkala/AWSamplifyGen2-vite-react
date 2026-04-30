@@ -12,8 +12,8 @@ const TasksPage: React.FC = () => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Tasks</h1>
-          <p className="text-gray-600 mt-2">Manage and track all your tasks</p>
+          <h1 className="text-3xl font-bold text-foreground">Tasks</h1>
+          <p className="text-muted-foreground mt-2">Manage and track all your tasks</p>
         </div>
       </div>
 
@@ -25,7 +25,7 @@ const TasksPage: React.FC = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-600 text-center py-8">
+          <p className="text-muted-foreground text-center py-8">
             Tasks page with filtering and management will be implemented here.
           </p>
         </CardContent>
